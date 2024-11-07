@@ -38,7 +38,11 @@ class Portada(Escena):
         while not salir:
             for evento in pg.event.get():
                 if pg.QUIT == evento.type:
-                  salir = True
+                 # salir = True
+                  return True
+                
+                if evento.type == pg.KEYDOWN  and evento.key == pg.K_SPACE:
+                   salir = True
 
             self.pantalla.fill((99,0,0))
 
@@ -46,7 +50,7 @@ class Portada(Escena):
             self.pintar_mensaje()
 
             pg.display.flip() 
-
+        return False
     def pintar_logo(self):
         ancho, alto = self.logo.get_size()
         pos_x = (ANCHO - ancho ) / 2
