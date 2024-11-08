@@ -6,7 +6,7 @@ import pygame as pg
 #mis dependencias
 from . import ALTO, ANCHO, FPS
 
-from . entidades import Raqueta
+from . entidades import Ladrillo, Raqueta
 
 
 
@@ -75,6 +75,7 @@ class Partida(Escena):
        ruta_fondo = os.path.join( 'arkanoid','resources', 'images', 'background.jpg')
        self.fondo = pg.image.load(ruta_fondo)
        self.jugador = Raqueta()
+       self.muro = []
 
     def bucle_principal(self):
         super().bucle_principal()
@@ -88,6 +89,7 @@ class Partida(Escena):
 
             
             self.pintar_fondo()
+            self.pintar_muro()
 
             self.jugador.update()
             self.pantalla.blit(self.jugador.image, self.jugador.rect)
@@ -101,7 +103,22 @@ class Partida(Escena):
         self.pantalla.blit(self.fondo , (0,800))
         self.pantalla.blit(self.fondo , (600,800))
      
-  
+    def pintar_rmuro(self):
+        # Num filas
+        # num cols
+        # bucle filas
+        # bucle cols
+        # xxxx <----- trabajar con un solo ladrillo
+
+        filas = 4
+        columnas = 6
+
+        for fila in range(filas):
+            for col in range(columnas):
+              ladrillo = Ladrillo()
+              self.muro.append(ladrillo)
+
+
 class MejoresJugadores(Escena):
     def __init__(self, pantalla) :
       super().__init__(pantalla)
