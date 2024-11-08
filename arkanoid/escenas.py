@@ -64,13 +64,13 @@ class Portada(Escena):
         pos_y = 5/6 * ALTO
         self.pantalla.blit(img_texto ,( pos_x, pos_y))
        
-
         
       
 class Partida(Escena):
     def __init__(self, pantalla):        
        super().__init__(pantalla)
-
+       ruta_fondo = os.path.join('arkanoid','resources','images','background.jpg')
+       self.fondo = pg.image.load(ruta_fondo)
     def bucle_principal(self):
         super().bucle_principal()
         salir = False
@@ -78,11 +78,19 @@ class Partida(Escena):
         while not salir:
             for evento in pg.event.get():
                if pg.QUIT == evento.type:
-                 salir = True
+                  return True
 
-            self.pantalla.fill((0,99,0))
+            
+            self.pintar_fondo()
             pg.display.flip() 
 
+    def pintar_fondo(self) :
+        # TODO  mejorar como rellenar toda la pantalla con el fondo sin usar copio/pego
+        self.pantalla.fill((0,0,99))
+        self.pantalla.blit(self.fondo , (0,0))
+        self.pantalla.blit(self.fondo , (600,0))
+        self.pantalla.blit(self.fondo , (0,800))
+        self.pantalla.blit(self.fondo , (600,800))
      
   
 class MejoresJugadores(Escena):
@@ -96,7 +104,7 @@ class MejoresJugadores(Escena):
         while not salir:
             for evento in pg.event.get():
                if pg.QUIT == evento.type:
-                salir = True
+                   return True
 
             self.pantalla.fill((0,0,99))
             pg.display.flip() 
