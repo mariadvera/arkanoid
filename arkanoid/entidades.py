@@ -7,7 +7,7 @@ from . import ANCHO, ALTO
 
 
 class Raqueta(pg.sprite.Sprite):  
-
+    velocidad = 10
     """ 
     1.Es un tipo de strite(usar herencia)
     2. se puede mover de un lado a otro (método)
@@ -33,7 +33,14 @@ class Raqueta(pg.sprite.Sprite):
       self.contador += 1
       if self.contador > 2:
          self.contador = 0
-      self.image = self.imagenes[self.contador]
+
+      teclas_pulsadas = pg.key.get_pressed()
+      if teclas_pulsadas[pg.K_LEFT]:
+           self.rect.x -= self.velocidad
+      if teclas_pulsadas[pg.K_RIGHT]:
+           self.rect.x += self.velocidad
+
+
       
           
-      
+       
