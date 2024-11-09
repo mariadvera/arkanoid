@@ -13,8 +13,7 @@ from . entidades import Ladrillo, Raqueta
 class Escena:
     def __init__(self, pantalla ):
        self.pantalla = pantalla 
-       self.reloj = pg.time.Clock()
-      
+       self.reloj =pg. time.Clock()
 
 
     def bucle_principal(self):
@@ -72,17 +71,16 @@ class Portada(Escena):
 class Partida(Escena):
     def __init__(self, pantalla):        
        super().__init__(pantalla)
-       ruta_fondo = os.path.join( 'arkanoid','resources', 'images', 'background.jpg')
+       ruta_fondo = os.path.join('arkanoid','resources', 'images', 'background.jpg')
        self.fondo = pg.image.load(ruta_fondo)
        self.jugador = Raqueta()
        self.muro = []
-
     def bucle_principal(self):
         super().bucle_principal()
         salir = False
 
         while not salir:
-            self.reloj.tick(FPS)
+            self.reloj.tick(FPS)           
             for evento in pg.event.get():
                if pg.QUIT == evento.type:
                   return True
@@ -93,6 +91,7 @@ class Partida(Escena):
 
             self.jugador.update()
             self.pantalla.blit(self.jugador.image, self.jugador.rect)
+
             pg.display.flip() 
 
     def pintar_fondo(self) :
@@ -103,20 +102,18 @@ class Partida(Escena):
         self.pantalla.blit(self.fondo , (0,800))
         self.pantalla.blit(self.fondo , (600,800))
      
-    def pintar_rmuro(self):
-        # Num filas
-        # num cols
+    def pintar_muro(self):
+        # filas
+        # número de columnas
         # bucle filas
-        # bucle cols
-        # xxxx <----- trabajar con un solo ladrillo
-
+          # bucle columnas
+         # xxx<----- lo que tengo que hacer con cada ladrillo
         filas = 4
         columnas = 6
-
         for fila in range(filas):
             for col in range(columnas):
-              ladrillo = Ladrillo()
-              self.muro.append(ladrillo)
+                ladrillo = Ladrillo
+                self.muro.append(ladrillo)
 
 
 class MejoresJugadores(Escena):

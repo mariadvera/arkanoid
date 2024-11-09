@@ -33,26 +33,26 @@ class Raqueta(pg.sprite.Sprite):
       self.contador += 1
       if self.contador > 2:
          self.contador = 0
-       
-
+      self.image = self.imagenes[self.contador]
       teclas_pulsadas = pg.key.get_pressed()
       if teclas_pulsadas[pg.K_LEFT]:
-           self.rect.x -= self.velocidad
-           if self.rect.left< 0:
+            self.rect.x -= self.velocidad
+            if self.rect.left < 0:
                self.rect.left = 0
       if teclas_pulsadas[pg.K_RIGHT]:
            self.rect.x += self.velocidad
            if self.rect.right > ANCHO:
-               self.rect.right = ANCHO 
+              self.rect.right = ANCHO 
 
 class Ladrillo(pg.sprite.Sprite):
    def __init__(self):
        super.__init__()
+
        ruta_verde = os.path.join('arkanoid','resources', 'images', 'greenTile.png')
        self.image = pg.image.load(ruta_verde)
        self.rect = self.image.get_rect() 
 
-   def update():
+   def update(self):
     pass
 
     
