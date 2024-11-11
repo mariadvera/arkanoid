@@ -88,6 +88,9 @@ class Partida(Escena):
             self.pintar_fondo()
             self.muro.draw(self.pantalla)
 
+            # FIX: si pintas el marcador ANTES que el jugador, quedará por detrás en lugar de por encima del jugador
+            self.mostrar_marcador()
+
             self.jugador.update()
             self.pantalla.blit(self.jugador.image, self.jugador.rect)
 
@@ -104,21 +107,33 @@ class Partida(Escena):
             if len(golpeados) > 0:
                 for ladrillo in golpeados:
                     # Añadir puntaje segun   el tipo de ladrillo
+                    # FIX: aquí no estás teniendo en cuenta que el ladrillo rojo necesita doble golpe para ser destruido
                     if ladrillo.tipo == Ladrillo.VERDE :
                         puntos = 10
-
-                    else : 
+                    elif ladrillo.tipo == Ladrillo.ROJO_ROTO:
                         puntos = 20
+                    else : 
+                        puntos = 0
 
                     # calcular la fila del ladrillo golpeado
                     fila = ladrillo.rect.y // ladrillo.rect.height
                     self.puntuacion += puntos * (fila + 1)
+
+                    # FIX: a nivel de estructura has ido por la opción más simple
+                    # haciendo todo dentro de Partida. Una solución más adecuada
+                    # teniendo en cuenta que estamos haciendo programación orientada
+                    # a objetos habría sido que la puntuación del ladrillo fuese parte
+                    # de la clase Ladrillo (como un atributo) y que el marcador fuese
+                    # una clase independiente que llevase la cuenta de los puntos
+                    # y fuese responsable de mostrarse en pantalla.
+                    # Además, ya tienes una clase ContadorVidas que tiene un método
+                    # "pintar()" que no hace nada (está vacío). Ese sería el lugar idóneo
+                    # para pintar las vidas restantes en pantalla, en lugar del método
+                    # "mostrar_marcador()"
                     
                     # Actualizar ladrillo
                     ladrillo.update()
                 self.pelota.vel_y = -self.pelota.vel_y
-
-            self.mostrar_marcador()
 
             pg.display.flip()
 
